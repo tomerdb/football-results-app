@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MatchDao {
     private SQLiteDatabase database;
-    private DatabaseHelper dbHelper;
+    private final DatabaseHelper dbHelper;
 
     public MatchDao(Context context) {
         dbHelper = new DatabaseHelper(context);

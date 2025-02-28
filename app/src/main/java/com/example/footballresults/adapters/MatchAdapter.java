@@ -1,5 +1,6 @@
 package com.example.footballresults.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,8 @@ import com.example.footballresults.models.Match;
 import java.util.List;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHolder> {
-    private List<Match> matchList;
-    private Context context;
+    private final List<Match> matchList;
+    private final Context context;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -39,6 +40,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
         return new MatchViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MatchViewHolder holder, int position) {
         Match match = matchList.get(position);

@@ -25,4 +25,13 @@
 
     <!-- Match Item -->
     <string name="city_separator">|</string>
+
+    <!-- Team Stats -->
+    <string name="matches_played">משחקים</string>
+    <string name="wins">ניצחונות</string>
+    <string name="draws">תיקו</string>
+    <string name="losses">הפסדים</string>
+    <string name="goals_scored">שערים שהובקעו</string>
+    <string name="goals_against">שערים שנספגו</string>
+    <string name="points">נקודות</string>
 </resources>
