@@ -101,4 +101,10 @@ public class TeamStatsDao {
         teamStats.setPoints(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_POINTS)));
         return teamStats;
     }
+
+    public boolean deleteTeamStats(String teamName) {
+        return database.delete(DatabaseHelper.TABLE_TEAM_STATS,
+                DatabaseHelper.COLUMN_TEAM_NAME + " = ?",
+                new String[]{teamName}) > 0;
+    }
 }

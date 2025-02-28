@@ -58,15 +58,37 @@ public class StatisticsCalculator {
                 teamBStats.setPoints(teamBStats.getPoints() - 1);
             }
 
-            // Save updated stats
-            teamStatsDao.updateTeamStats(teamAStats);
-            teamStatsDao.updateTeamStats(teamBStats);
+            // Check if team A stats are all zero
+            if (isTeamStatsEmpty(teamAStats)) {
+                teamStatsDao.deleteTeamStats(teamAStats.getTeamName());
+            } else {
+                // Save updated stats
+                teamStatsDao.updateTeamStats(teamAStats);
+            }
+
+            // Check if team B stats are all zero
+            if (isTeamStatsEmpty(teamBStats)) {
+                teamStatsDao.deleteTeamStats(teamBStats.getTeamName());
+            } else {
+                // Save updated stats
+                teamStatsDao.updateTeamStats(teamBStats);
+            }
         }
 
         matchDao.close();
         teamStatsDao.close();
     }
 
+    // Helper method to check if all team stats are zero
+    private boolean isTeamStatsEmpty(TeamStats stats) {
+        return stats.getMatchesPlayed() == 0 &&
+                stats.getWins() == 0 &&
+                stats.getDraws() == 0 &&
+                stats.getLosses() == 0 &&
+                stats.getGoalsScored() == 0 &&
+                stats.getGoalsAgainst() == 0 &&
+                stats.getPoints() == 0;
+    }
     public void calculateStatsForMatch(Match match) {
         matchDao.open();
         teamStatsDao.open();
