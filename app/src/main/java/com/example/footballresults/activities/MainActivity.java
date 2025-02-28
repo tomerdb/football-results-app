@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.footballresults.R;
+import com.example.footballresults.database.DatabaseSeeder;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnAddMatch, btnViewMatches, btnTeamStats, btnSearch;
@@ -20,11 +17,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Seed database with initial data
+        DatabaseSeeder seeder = new DatabaseSeeder(this);
+        seeder.seedDatabase();
+
+        // Initialize UI components
+        initializeViews();
+        setupListeners();
+    }
+
+    private void initializeViews() {
         btnAddMatch = findViewById(R.id.btn_add_match);
         btnViewMatches = findViewById(R.id.btn_view_matches);
         btnTeamStats = findViewById(R.id.btn_team_stats);
         btnSearch = findViewById(R.id.btn_search);
+    }
 
+    private void setupListeners() {
         btnAddMatch.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MatchEntryActivity.class);
             startActivity(intent);
