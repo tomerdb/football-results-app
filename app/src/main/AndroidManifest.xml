@@ -21,6 +21,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.MatchEntryActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name=".activities.TeamStatsActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name=".activities.SearchActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name=".activities.ReportActivity"
+            android:parentActivityName=".activities.MainActivity" />
     </application>
 
 </manifest>
