@@ -65,5 +65,5 @@
     <string name="error_add_match">שגיאה בהוספת המשחק</string>
     <string name="error_update_match">שגיאה בעדכון המשחק</string>
     <string name="error_delete_match">שגיאה במחיקת המשחק</string>
-
+    <string name="error_invalid_date">תאריך לא תקין</string>
 </resources>
