@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">Football Results</string>
+    <string name="app_name">תוצאות משחקי כדורגל</string>
+    <string name="app_title">מערכת ניהול תוצאות משחקי כדורגל</string>
+    <string name="add_match">הוסף משחק חדש</string>
+    <string name="view_matches">צפה במשחקים</string>
+    <string name="team_statistics">סטטיסטיקת קבוצות</string>
+    <string name="search_matches">חפש משחקים</string>
+
+    <!-- Match Entry -->
+    <string name="match_entry_title">הוספת/עריכת משחק</string>
+    <string name="match_date">תאריך המשחק</string>
+    <string name="date_format">DD/MM/YYYY</string>
+    <string name="match_city">עיר</string>
+    <string name="city_hint">שם העיר</string>
+    <string name="team_a">קבוצה א\'</string>
+    <string name="team_a_hint">שם קבוצה א\'</string>
+    <string name="team_a_goals">שערים קבוצה א\'</string>
+    <string name="team_b">קבוצה ב\'</string>
+    <string name="team_b_hint">שם קבוצה ב\'</string>
+    <string name="team_b_goals">שערים קבוצה ב\'</string>
+    <string name="goals_hint">מספר שערים</string>
+    <string name="save">שמור</string>
+    <string name="cancel">בטל</string>
+    <string name="delete">מחק</string>
+
+    <!-- Match Item -->
+    <string name="city_separator">|</string>
 </resources>
