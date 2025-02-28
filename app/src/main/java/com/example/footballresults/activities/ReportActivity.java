@@ -89,7 +89,8 @@ public class ReportActivity extends AppCompatActivity {
 
     private void loadMatchesReport() {
         matchDao.open();
-        List<Match> matches = matchDao.getAllMatches();
+        // Use the new method that returns matches sorted by date
+        List<Match> matches = matchDao.getAllMatchesSortedByDate();
         matchDao.close();
 
         if (matches.isEmpty()) {
@@ -106,7 +107,6 @@ public class ReportActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         }
     }
-
     private void loadTeamStatsReport() {
         teamStatsDao.open();
         List<TeamStats> teamStats = teamStatsDao.getAllTeamStats();

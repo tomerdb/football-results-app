@@ -54,6 +54,32 @@ public class MatchDao {
         return database.insert(DatabaseHelper.TABLE_MATCHES, null, values);
     }
 
+    public List<Match> getAllMatchesSortedByDate() {
+        List<Match> matches = new ArrayList<>();
+
+        // Define sort order - most recent matches first
+        String orderBy = DatabaseHelper.COLUMN_DATE + " DESC";
+
+        Cursor cursor = database.query(
+                DatabaseHelper.TABLE_MATCHES,
+                null,
+                null,
+                null,
+                null,
+                null,
+                orderBy
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Match match = cursorToMatch(cursor);
+                matches.add(match);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return matches;
+    }
+
     public boolean updateMatch(Match match) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_DATE, match.getDate());
