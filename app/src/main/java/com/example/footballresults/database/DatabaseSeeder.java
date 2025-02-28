@@ -1,5 +1,6 @@
 package com.example.footballresults.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -51,7 +52,7 @@ public class DatabaseSeeder {
             insertMatches(db);
 
             // Calculate statistics
-            updateStatistics();
+            updateStatistics(db);  // Pass the database here
 
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -173,11 +174,77 @@ public class DatabaseSeeder {
         db.insert(DatabaseHelper.TABLE_MATCHES, null, match8);
     }
 
-    private void updateStatistics() {
+    private void updateStatistics(SQLiteDatabase db) {
         Log.d(TAG, "Calculating team statistics...");
 
-        // Use the StatisticsCalculator to update all team statistics
-        StatisticsCalculator calculator = new StatisticsCalculator(context);
-        calculator.recalculateAllStats();
+        // Loop through all matches in the database and update stats manually
+        Cursor cursor = db.query(DatabaseHelper.TABLE_MATCHES, null, null, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // Extract match data
+                @SuppressLint("Range") String teamA = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEAM_A));
+                @SuppressLint("Range") String teamB = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEAM_B));
+                @SuppressLint("Range") int teamAGoals = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEAM_A_GOALS));
+                @SuppressLint("Range") int teamBGoals = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEAM_B_GOALS));
+
+                // Update Team A stats
+                updateTeamStats(db, teamA, teamAGoals, teamBGoals, teamAGoals > teamBGoals, teamAGoals == teamBGoals);
+
+                // Update Team B stats
+                updateTeamStats(db, teamB, teamBGoals, teamAGoals, teamBGoals > teamAGoals, teamAGoals == teamBGoals);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+    }
+
+    private void updateTeamStats(SQLiteDatabase db, String teamName, int goalsScored, int goalsAgainst, boolean isWin, boolean isDraw) {
+        // Get current team stats
+        Cursor cursor = db.query(
+                DatabaseHelper.TABLE_TEAM_STATS,
+                null,
+                DatabaseHelper.COLUMN_TEAM_NAME + "=?",
+                new String[]{teamName},
+                null, null, null
+        );
+
+        ContentValues values = new ContentValues();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // Update existing team stats
+            @SuppressLint("Range") int matchesPlayed = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MATCHES_PLAYED)) + 1;
+            @SuppressLint("Range") int wins = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_WINS)) + (isWin ? 1 : 0);
+            @SuppressLint("Range") int draws = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_DRAWS)) + (isDraw ? 1 : 0);
+            @SuppressLint("Range") int losses = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LOSSES));
+            if (!isWin && !isDraw) losses += 1;
+
+            @SuppressLint("Range") int totalGoalsScored = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_GOALS_SCORED)) + goalsScored;
+            @SuppressLint("Range") int totalGoalsAgainst = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_GOALS_AGAINST)) + goalsAgainst;
+            @SuppressLint("Range") int points = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_POINTS));
+
+            // Calculate points (3 for win, 1 for draw)
+            if (isWin) points += 3;
+            else if (isDraw) points += 1;
+
+            // Update values
+            values.put(DatabaseHelper.COLUMN_MATCHES_PLAYED, matchesPlayed);
+            values.put(DatabaseHelper.COLUMN_WINS, wins);
+            values.put(DatabaseHelper.COLUMN_DRAWS, draws);
+            values.put(DatabaseHelper.COLUMN_LOSSES, losses);
+            values.put(DatabaseHelper.COLUMN_GOALS_SCORED, totalGoalsScored);
+            values.put(DatabaseHelper.COLUMN_GOALS_AGAINST, totalGoalsAgainst);
+            values.put(DatabaseHelper.COLUMN_POINTS, points);
+
+            // Update in database
+            db.update(
+                    DatabaseHelper.TABLE_TEAM_STATS,
+                    values,
+                    DatabaseHelper.COLUMN_TEAM_NAME + "=?",
+                    new String[]{teamName}
+            );
+
+            cursor.close();
+        }
     }
 }
