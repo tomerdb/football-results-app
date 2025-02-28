@@ -29,6 +29,7 @@
             android:id="@+id/et_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
             android:inputType="date"
             android:hint="@string/date_format" />
@@ -43,6 +44,7 @@
             android:id="@+id/et_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
             android:inputType="text"
             android:hint="@string/city_hint" />
@@ -57,6 +59,7 @@
             android:id="@+id/et_team_a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
             android:inputType="text"
             android:hint="@string/team_a_hint" />
@@ -71,6 +74,7 @@
             android:id="@+id/et_team_a_goals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
             android:inputType="number"
             android:hint="@string/goals_hint" />
@@ -85,6 +89,7 @@
             android:id="@+id/et_team_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
             android:inputType="text"
             android:hint="@string/team_b_hint" />
@@ -99,6 +104,7 @@
             android:id="@+id/et_team_b_goals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_marginBottom="24dp"
             android:inputType="number"
             android:hint="@string/goals_hint" />
@@ -112,6 +118,7 @@
                 android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:layout_weight="1"
                 android:text="@string/save"
                 android:layout_marginEnd="8dp" />
@@ -120,6 +127,7 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:text="@string/cancel" />
@@ -129,6 +137,7 @@
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="@string/delete"
             android:layout_marginTop="16dp"
             android:visibility="gone" />
