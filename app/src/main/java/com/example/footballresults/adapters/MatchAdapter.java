@@ -40,7 +40,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
         return new MatchViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MatchViewHolder holder, int position) {
         Match match = matchList.get(position);
@@ -48,7 +47,38 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
         holder.tvCity.setText(match.getCity());
         holder.tvTeamA.setText(match.getTeamA());
         holder.tvTeamB.setText(match.getTeamB());
-        holder.tvScore.setText(match.getTeamAGoals() + " - " + match.getTeamBGoals());
+
+        // Set actual goals
+        holder.tvTeamAGoals.setText(String.valueOf(match.getTeamAGoals()));
+        holder.tvTeamBGoals.setText(String.valueOf(match.getTeamBGoals()));
+
+        // Color-code results
+        int teamAGoals = match.getTeamAGoals();
+        int teamBGoals = match.getTeamBGoals();
+
+        // Team A result coloring
+        if (teamAGoals > teamBGoals) {
+            // Team A won
+            holder.tvTeamAGoals.setBackgroundResource(R.color.win_color);
+        } else if (teamAGoals < teamBGoals) {
+            // Team A lost
+            holder.tvTeamAGoals.setBackgroundResource(R.color.loss_color);
+        } else {
+            // Draw
+            holder.tvTeamAGoals.setBackgroundResource(R.color.draw_color);
+        }
+
+        // Team B result coloring
+        if (teamBGoals > teamAGoals) {
+            // Team B won
+            holder.tvTeamBGoals.setBackgroundResource(R.color.win_color);
+        } else if (teamBGoals < teamAGoals) {
+            // Team B lost
+            holder.tvTeamBGoals.setBackgroundResource(R.color.loss_color);
+        } else {
+            // Draw
+            holder.tvTeamBGoals.setBackgroundResource(R.color.draw_color);
+        }
     }
 
     @Override
@@ -57,7 +87,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
     }
 
     class MatchViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDate, tvCity, tvTeamA, tvTeamB, tvScore;
+        TextView tvDate, tvCity, tvTeamA, tvTeamB, tvTeamAGoals, tvTeamBGoals;
 
         public MatchViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,7 +95,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
             tvCity = itemView.findViewById(R.id.tv_city);
             tvTeamA = itemView.findViewById(R.id.tv_team_a);
             tvTeamB = itemView.findViewById(R.id.tv_team_b);
-            tvScore = itemView.findViewById(R.id.tv_score);
+            tvTeamAGoals = itemView.findViewById(R.id.tv_team_a_goals);
+            tvTeamBGoals = itemView.findViewById(R.id.tv_team_b_goals);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

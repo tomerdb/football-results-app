@@ -2,7 +2,7 @@ package com.example.footballresults.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import com.example.footballresults.R;
 import com.example.footballresults.database.DatabaseSeeder;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnAddMatch, btnViewMatches, btnTeamStats, btnSearch;
+    private View btnAddMatch, btnViewMatches, btnTeamStats, btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize UI components
         initializeViews();
-        setupListeners();
     }
 
     private void initializeViews() {
@@ -31,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
         btnViewMatches = findViewById(R.id.btn_view_matches);
         btnTeamStats = findViewById(R.id.btn_team_stats);
         btnSearch = findViewById(R.id.btn_search);
-    }
 
-    private void setupListeners() {
+        // Set up click listeners directly in the initialization method
         btnAddMatch.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MatchEntryActivity.class);
             startActivity(intent);
