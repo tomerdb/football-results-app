@@ -89,7 +89,7 @@ com.example.footballresults/
 
 ## Contributors
 
-- [Your Name] - Initial work
+- [Tomer Harari, Yuval Boker] - Initial work
 
 ## License
 
@@ -97,5 +97,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Project developed as part of [Course/Class Name]
+- Project developed as part of [Course/Android]
 - Dr. Eyad Suliman - Course Instructor
