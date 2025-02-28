@@ -28,6 +28,20 @@ public class MatchDao {
         dbHelper.close();
     }
 
+    public Match getMatchById(long matchId) {
+        Match match = null;
+        String selection = DatabaseHelper.COLUMN_MATCH_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(matchId)};
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_MATCHES, null, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            match = cursorToMatch(cursor);
+            cursor.close();
+        }
+        return match;
+    }
+
     public long addMatch(Match match) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_DATE, match.getDate());
