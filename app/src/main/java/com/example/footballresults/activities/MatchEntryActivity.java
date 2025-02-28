@@ -12,11 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.footballresults.R;
 import com.example.footballresults.database.MatchDao;
 import com.example.footballresults.models.Match;
+import com.example.footballresults.utils.DateFormatter;
 import com.example.footballresults.utils.StatisticsCalculator;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class MatchEntryActivity extends AppCompatActivity {
     private EditText etDate, etCity, etTeamA, etTeamB, etTeamAGoals, etTeamBGoals;
@@ -25,7 +24,6 @@ public class MatchEntryActivity extends AppCompatActivity {
     private StatisticsCalculator statsCalculator;
     private Match existingMatch;
     private Calendar calendar;
-    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,6 @@ public class MatchEntryActivity extends AppCompatActivity {
         matchDao = new MatchDao(this);
         statsCalculator = new StatisticsCalculator(this);
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         // Check if we're editing an existing match
         if (getIntent().hasExtra("match_id")) {
@@ -81,7 +78,7 @@ public class MatchEntryActivity extends AppCompatActivity {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, month);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        etDate.setText(dateFormat.format(calendar.getTime()));
+                        etDate.setText(DateFormatter.formatDate(calendar.getTime()));
                     },
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
@@ -122,6 +119,13 @@ public class MatchEntryActivity extends AppCompatActivity {
             showToast(getString(R.string.error_date_required));
             return false;
         }
+
+        String dateStr = etDate.getText().toString().trim();
+        if (!DateFormatter.isValidDate(dateStr)) {
+            showToast(getString(R.string.error_invalid_date));
+            return false;
+        }
+
         if (etCity.getText().toString().trim().isEmpty()) {
             showToast(getString(R.string.error_city_required));
             return false;
