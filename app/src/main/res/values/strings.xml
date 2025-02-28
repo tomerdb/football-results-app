@@ -34,4 +34,36 @@
     <string name="goals_scored">שערים שהובקעו</string>
     <string name="goals_against">שערים שנספגו</string>
     <string name="points">נקודות</string>
+
+
+    <!-- Search Activity -->
+    <string name="select_team">בחר קבוצה</string>
+    <string name="select_team_prompt">בחר קבוצה לחיפוש משחקים:</string>
+    <string name="no_matches_found">לא נמצאו משחקים לקבוצה זו</string>
+
+    <!-- Report Activity -->
+    <string name="matches_report">דוח משחקים</string>
+    <string name="no_data_found">אין נתונים להצגה</string>
+    <string name="no_team_stats_found">אין נתוני קבוצות להצגה</string>
+    <string name="print_report">הדפס דוח</string>
+
+    <!-- Team Stats Activity -->
+    <string name="recalculate_stats">חשב מחדש סטטיסטיקות</string>
+    <string name="stats_recalculated">הסטטיסטיקות חושבו מחדש בהצלחה</string>
+
+    <!-- Match Entry Activity -->
+    <string name="error_date_required">נא להזין תאריך</string>
+    <string name="error_city_required">נא להזין עיר</string>
+    <string name="error_team_a_required">נא להזין שם קבוצה א\'</string>
+    <string name="error_team_b_required">נא להזין שם קבוצה ב\'</string>
+    <string name="error_team_a_goals_required">נא להזין מספר שערים לקבוצה א\'</string>
+    <string name="error_team_b_goals_required">נא להזין מספר שערים לקבוצה ב\'</string>
+    <string name="error_same_teams">לא ניתן להזין אותה קבוצה פעמיים</string>
+    <string name="match_added">המשחק נוסף בהצלחה</string>
+    <string name="match_updated">המשחק עודכן בהצלחה</string>
+    <string name="match_deleted">המשחק נמחק בהצלחה</string>
+    <string name="error_add_match">שגיאה בהוספת המשחק</string>
+    <string name="error_update_match">שגיאה בעדכון המשחק</string>
+    <string name="error_delete_match">שגיאה במחיקת המשחק</string>
+
 </resources>
