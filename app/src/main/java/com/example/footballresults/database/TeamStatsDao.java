@@ -71,6 +71,22 @@ public class TeamStatsDao {
         return teamStats;
     }
 
+    public List<TeamStats> getAllTeamStatsSorted(boolean ascending) {
+        List<TeamStats> teamStatsList = new ArrayList<>();
+        String orderBy = DatabaseHelper.COLUMN_POINTS + (ascending ? " ASC" : " DESC");
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_TEAM_STATS, null, null, null, null, null, orderBy);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                TeamStats teamStats = cursorToTeamStats(cursor);
+                teamStatsList.add(teamStats);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return teamStatsList;
+    }
+
     public List<TeamStats> getAllTeamStats() {
         List<TeamStats> teamStatsList = new ArrayList<>();
         String orderBy = DatabaseHelper.COLUMN_POINTS + " DESC";

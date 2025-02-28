@@ -39,7 +39,6 @@ public class TeamStatsAdapter extends RecyclerView.Adapter<TeamStatsAdapter.Team
         holder.tvDraws.setText(String.valueOf(teamStats.getDraws()));
         holder.tvLosses.setText(String.valueOf(teamStats.getLosses()));
         holder.tvGoalsScored.setText(String.valueOf(teamStats.getGoalsScored()));
-        holder.tvGoalsAgainst.setText(String.valueOf(teamStats.getGoalsAgainst()));
         holder.tvPoints.setText(String.valueOf(teamStats.getPoints()));
     }
 
@@ -49,7 +48,7 @@ public class TeamStatsAdapter extends RecyclerView.Adapter<TeamStatsAdapter.Team
     }
 
     class TeamStatsViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTeamName, tvMatchesPlayed, tvWins, tvDraws, tvLosses, tvGoalsScored, tvGoalsAgainst, tvPoints;
+        TextView tvTeamName, tvMatchesPlayed, tvWins, tvDraws, tvLosses, tvGoalsScored, tvPoints;
 
         public TeamStatsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,7 +58,6 @@ public class TeamStatsAdapter extends RecyclerView.Adapter<TeamStatsAdapter.Team
             tvDraws = itemView.findViewById(R.id.tv_draws);
             tvLosses = itemView.findViewById(R.id.tv_losses);
             tvGoalsScored = itemView.findViewById(R.id.tv_goals_scored);
-            tvGoalsAgainst = itemView.findViewById(R.id.tv_goals_against);
             tvPoints = itemView.findViewById(R.id.tv_points);
         }
     }

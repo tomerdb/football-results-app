@@ -27,6 +27,7 @@
     <string name="city_separator">|</string>
 
     <!-- Team Stats -->
+    <string name="team_name">קבוצה</string>
     <string name="matches_played">משחקים</string>
     <string name="wins">ניצחונות</string>
     <string name="draws">תיקו</string>

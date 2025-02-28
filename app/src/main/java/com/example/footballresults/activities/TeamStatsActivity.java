@@ -3,6 +3,8 @@ package com.example.footballresults.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,8 @@ public class TeamStatsActivity extends AppCompatActivity {
     private TeamStatsAdapter adapter;
     private TeamStatsDao teamStatsDao;
     private StatisticsCalculator statsCalculator;
+    private boolean isAscendingSort = false; // Default to descending (highest points first)
+    private ImageView sortIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,29 @@ public class TeamStatsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_team_stats);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Set up points header sorting
+        LinearLayout pointsHeader = findViewById(R.id.points_header);
+        sortIndicator = findViewById(R.id.sort_indicator);
+
+        pointsHeader.setOnClickListener(v -> {
+            // Toggle sort direction
+            isAscendingSort = !isAscendingSort;
+            updateSortIndicator();
+            loadTeamStats();
+        });
+
         teamStatsDao = new TeamStatsDao(this);
         statsCalculator = new StatisticsCalculator(this);
 
         loadTeamStats();
+    }
+
+    private void updateSortIndicator() {
+        if (isAscendingSort) {
+            sortIndicator.setImageResource(android.R.drawable.arrow_up_float);
+        } else {
+            sortIndicator.setImageResource(android.R.drawable.arrow_down_float);
+        }
     }
 
     @Override
@@ -54,7 +77,7 @@ public class TeamStatsActivity extends AppCompatActivity {
 
     private void loadTeamStats() {
         teamStatsDao.open();
-        List<TeamStats> teamStatsList = teamStatsDao.getAllTeamStats();
+        List<TeamStats> teamStatsList = teamStatsDao.getAllTeamStatsSorted(isAscendingSort);
         teamStatsDao.close();
 
         adapter = new TeamStatsAdapter(this, teamStatsList);
