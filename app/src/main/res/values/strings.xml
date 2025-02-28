@@ -3,7 +3,7 @@
     <string name="app_title">מערכת ניהול תוצאות משחקי כדורגל</string>
     <string name="add_match">הוסף משחק חדש</string>
     <string name="view_matches">צפה במשחקים</string>
-    <string name="team_statistics">סטטיסטיקת קבוצות</string>
+    <string name="team_statistics">טבלת סטטיסטיקה</string>
     <string name="search_matches">חפש משחקים</string>
 
     <!-- Match Entry -->
@@ -28,13 +28,12 @@
 
     <!-- Team Stats -->
     <string name="team_name">קבוצה</string>
-    <string name="matches_played">משחקים</string>
-    <string name="wins">ניצחונות</string>
-    <string name="draws">תיקו</string>
-    <string name="losses">הפסדים</string>
-    <string name="goals_scored">שערים שהובקעו</string>
-    <string name="goals_against">שערים שנספגו</string>
-    <string name="points">נקודות</string>
+    <string name="matches_played">מש\'</string>
+    <string name="wins">נ</string>
+    <string name="draws">ת</string>
+    <string name="losses">ה</string>
+    <string name="goals_scored">שערים</string>
+    <string name="points">נק\'</string>
 
 
     <!-- Search Activity -->
