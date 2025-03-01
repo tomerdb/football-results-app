@@ -1,6 +1,7 @@
 package com.example.footballresults.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class TeamStatsAdapter extends RecyclerView.Adapter<TeamStatsAdapter.Team
     @Override
     public void onBindViewHolder(@NonNull TeamStatsViewHolder holder, int position) {
         TeamStats teamStats = teamStatsList.get(position);
+
+        // Set the text values
         holder.tvTeamName.setText(teamStats.getTeamName());
         holder.tvMatchesPlayed.setText(String.valueOf(teamStats.getMatchesPlayed()));
         holder.tvWins.setText(String.valueOf(teamStats.getWins()));
@@ -40,6 +43,13 @@ public class TeamStatsAdapter extends RecyclerView.Adapter<TeamStatsAdapter.Team
         holder.tvLosses.setText(String.valueOf(teamStats.getLosses()));
         holder.tvGoalsScored.setText(String.valueOf(teamStats.getGoalsScored()));
         holder.tvPoints.setText(String.valueOf(teamStats.getPoints()));
+
+        // Add alternating background colors for better readability
+        if (position % 2 == 0) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        }
     }
 
     @Override

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,137 +12,267 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/match_entry_title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/match_date"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
-            android:inputType="date"
-            android:hint="@string/date_format" />
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/match_city"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <EditText
-            android:id="@+id/et_city"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/match_entry_title"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#3F51B5"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/match_date"
+                    android:textStyle="bold"
+                    android:textColor="#3F51B5" />
+
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:inputType="date"
+                    android:hint="@string/date_format"
+                    android:drawableStart="@android:drawable/ic_menu_my_calendar"
+                    android:drawablePadding="8dp"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="12dp"
+                    android:textColorHint="#424242"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/match_city"
+                    android:textStyle="bold"
+                    android:textColor="#3F51B5" />
+
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:inputType="text"
+                    android:hint="@string/city_hint"
+                    android:drawableStart="@android:drawable/ic_dialog_map"
+                    android:drawablePadding="8dp"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="12dp"
+                    android:textColorHint="#424242"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
             android:layout_marginBottom="16dp"
-            android:inputType="text"
-            android:hint="@string/city_hint" />
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_a"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <EditText
-            android:id="@+id/et_team_a"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:layout_marginBottom="16dp"
-            android:inputType="text"
-            android:hint="@string/team_a_hint" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="פרטי הקבוצות"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#3F51B5"
+                    android:layout_marginBottom="16dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_a_goals"
-            android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/et_team_a_goals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:layout_marginBottom="16dp"
-            android:inputType="number"
-            android:hint="@string/goals_hint" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_b"
-            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/team_a"
+                            android:textStyle="bold"
+                            android:textColor="#3F51B5" />
 
-        <EditText
-            android:id="@+id/et_team_b"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:layout_marginBottom="16dp"
-            android:inputType="text"
-            android:hint="@string/team_b_hint" />
+                        <EditText
+                            android:id="@+id/et_team_a"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:layout_marginBottom="16dp"
+                            android:inputType="text"
+                            android:hint="@string/team_a_hint"
+                            android:background="@drawable/edit_text_background"
+                            android:padding="12dp"
+                            android:textColorHint="#424242"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_b_goals"
-            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/team_a_goals"
+                            android:textStyle="bold"
+                            android:textColor="#3F51B5" />
 
-        <EditText
-            android:id="@+id/et_team_b_goals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:layout_marginBottom="24dp"
-            android:inputType="number"
-            android:hint="@string/goals_hint" />
+                        <EditText
+                            android:id="@+id/et_team_a_goals"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:layout_marginBottom="16dp"
+                            android:inputType="number"
+                            android:hint="@string/goals_hint"
+                            android:background="@drawable/edit_text_background"
+                            android:padding="12dp"
+                            android:textColorHint="#424242"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#E0E0E0"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/team_b"
+                            android:textStyle="bold"
+                            android:textColor="#3F51B5" />
+
+                        <EditText
+                            android:id="@+id/et_team_b"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:layout_marginBottom="16dp"
+                            android:inputType="text"
+                            android:hint="@string/team_b_hint"
+                            android:background="@drawable/edit_text_background"
+                            android:padding="12dp"
+                            android:textColorHint="#424242"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/team_b_goals"
+                            android:textStyle="bold"
+                            android:textColor="#3F51B5" />
+
+                        <EditText
+                            android:id="@+id/et_team_b_goals"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:layout_marginBottom="16dp"
+                            android:inputType="number"
+                            android:hint="@string/goals_hint"
+                            android:background="@drawable/edit_text_background"
+                            android:padding="12dp"
+                            android:textColorHint="#424242"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Action Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
                 android:layout_weight="1"
                 android:text="@string/save"
-                android:layout_marginEnd="8dp" />
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                android:backgroundTint="#4CAF50"
+                android:layout_marginEnd="8dp"
+                android:minHeight="56dp"
+                app:icon="@android:drawable/ic_menu_save"
+                app:iconGravity="textStart" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                android:backgroundTint="#F44336"
+                android:minHeight="56dp"
+                app:icon="@android:drawable/ic_menu_close_clear_cancel"
+                app:iconGravity="textStart" />
         </LinearLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
             android:text="@string/delete"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:cornerRadius="8dp"
+            android:backgroundTint="#9E9E9E"
             android:layout_marginTop="16dp"
-            android:visibility="gone" />
+            android:minHeight="56dp"
+            android:visibility="gone"
+            app:icon="@android:drawable/ic_menu_delete"
+            app:iconGravity="textStart" />
 
     </LinearLayout>
 </ScrollView>
