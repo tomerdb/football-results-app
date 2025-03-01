@@ -8,8 +8,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.footballresults.models.Match;
+import com.example.footballresults.utils.DateFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class MatchDao {
@@ -57,9 +60,7 @@ public class MatchDao {
     public List<Match> getAllMatchesSortedByDate() {
         List<Match> matches = new ArrayList<>();
 
-        // Define sort order - most recent matches first
-        String orderBy = DatabaseHelper.COLUMN_DATE + " DESC";
-
+        // First, get all matches
         Cursor cursor = database.query(
                 DatabaseHelper.TABLE_MATCHES,
                 null,
@@ -67,7 +68,7 @@ public class MatchDao {
                 null,
                 null,
                 null,
-                orderBy
+                null  // No SQL sorting here
         );
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -77,9 +78,24 @@ public class MatchDao {
             } while (cursor.moveToNext());
             cursor.close();
         }
+
+        // Sort matches by date using a custom comparator with DateFormatter
+        Collections.sort(matches, (match1, match2) -> {
+            // Convert the date strings to Date objects using DateFormatter
+            Date date1 = DateFormatter.parseDate(match1.getDate());
+            Date date2 = DateFormatter.parseDate(match2.getDate());
+
+            // Handle null dates (if parsing fails)
+            if (date1 == null && date2 == null) return 0;
+            if (date1 == null) return 1;
+            if (date2 == null) return -1;
+
+            // Most recent dates first (descending order)
+            return date2.compareTo(date1);
+        });
+
         return matches;
     }
-
     public boolean updateMatch(Match match) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_DATE, match.getDate());
