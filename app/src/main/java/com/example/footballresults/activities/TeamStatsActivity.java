@@ -3,6 +3,7 @@ package com.example.footballresults.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ public class TeamStatsActivity extends AppCompatActivity {
     private TeamStatsAdapter adapter;
     private TeamStatsDao teamStatsDao;
     private StatisticsCalculator statsCalculator;
-    private boolean isAscendingSort = false; // Default to descending (highest points first)
+    private boolean isAscendingSort = false;
     private ImageView sortIndicator;
 
     @Override
@@ -43,7 +44,7 @@ public class TeamStatsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_team_stats);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Set up points header sorting
+        // Setup sort header click
         LinearLayout pointsHeader = findViewById(R.id.points_header);
         sortIndicator = findViewById(R.id.sort_indicator);
 
@@ -52,6 +53,20 @@ public class TeamStatsActivity extends AppCompatActivity {
             isAscendingSort = !isAscendingSort;
             updateSortIndicator();
             loadTeamStats();
+        });
+
+        // Sync horizontal scrolling between header and data
+        HorizontalScrollView headerScroll = findViewById(R.id.header_scroll);
+        HorizontalScrollView dataScroll = findViewById(R.id.data_scroll);
+
+        // Sync data scroll with header scroll
+        dataScroll.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            headerScroll.scrollTo(scrollX, 0);
+        });
+
+        // Sync header scroll with data scroll
+        headerScroll.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            dataScroll.scrollTo(scrollX, 0);
         });
 
         teamStatsDao = new TeamStatsDao(this);

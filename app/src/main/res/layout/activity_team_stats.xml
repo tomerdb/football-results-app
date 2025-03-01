@@ -18,9 +18,10 @@
 
     <!-- Table Headers -->
     <HorizontalScrollView
-        android:id="@+id/horizontal_scroll"
+        android:id="@+id/header_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
 
         <LinearLayout
@@ -140,10 +141,11 @@
     </HorizontalScrollView>
 
     <HorizontalScrollView
+        android:id="@+id/data_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
+        app:layout_constraintTop_toBottomOf="@id/header_scroll"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
