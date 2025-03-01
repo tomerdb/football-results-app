@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
-    <color name="primary_light">#C5CAE9</color>
-    <color name="accent">#4CAF50</color>
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#00BCD4</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
-    <color name="divider">#BDBDBD</color>
+    <color name="divider">#EEEEEE</color>
     <color name="win_color">#4CAF50</color>
     <color name="draw_color">#FFC107</color>
     <color name="loss_color">#F44336</color>
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="input_background">#F8F9FA</color>
+    <color name="input_stroke">#E0E0E0</color>
 </resources>
