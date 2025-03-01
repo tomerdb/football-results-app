@@ -15,22 +15,43 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Data Access Object for handling Match-related database operations.
+ * This class provides methods for creating, reading, updating, and deleting
+ * match records in the database, as well as querying match data in various ways.
+ */
 public class MatchDao {
     private SQLiteDatabase database;
     private final DatabaseHelper dbHelper;
 
+    /**
+     * Constructor that initializes the database helper.
+     * @param context The application context
+     */
     public MatchDao(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
 
+    /**
+     * Opens a writable database connection.
+     * @throws SQLException if the database cannot be opened
+     */
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Closes the database connection.
+     */
     public void close() {
         dbHelper.close();
     }
 
+    /**
+     * Retrieves a match by its ID.
+     * @param matchId The ID of the match to retrieve
+     * @return The Match object if found, null otherwise
+     */
     public Match getMatchById(long matchId) {
         Match match = null;
         String selection = DatabaseHelper.COLUMN_MATCH_ID + " = ?";
@@ -45,6 +66,11 @@ public class MatchDao {
         return match;
     }
 
+    /**
+     * Adds a new match to the database.
+     * @param match The Match object to add
+     * @return The ID of the newly inserted match, or -1 if the insertion failed
+     */
     public long addMatch(Match match) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_DATE, match.getDate());
@@ -57,6 +83,10 @@ public class MatchDao {
         return database.insert(DatabaseHelper.TABLE_MATCHES, null, values);
     }
 
+    /**
+     * Retrieves all matches sorted by date in descending order (most recent first).
+     * @return List of all matches sorted by date
+     */
     public List<Match> getAllMatchesSortedByDate() {
         List<Match> matches = new ArrayList<>();
 
@@ -96,6 +126,12 @@ public class MatchDao {
 
         return matches;
     }
+
+    /**
+     * Updates an existing match in the database.
+     * @param match The Match object containing updated data
+     * @return true if the update was successful, false otherwise
+     */
     public boolean updateMatch(Match match) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_DATE, match.getDate());
@@ -110,12 +146,21 @@ public class MatchDao {
                 new String[]{String.valueOf(match.getId())}) > 0;
     }
 
+    /**
+     * Deletes a match from the database.
+     * @param matchId The ID of the match to delete
+     * @return true if the deletion was successful, false otherwise
+     */
     public boolean deleteMatch(long matchId) {
         return database.delete(DatabaseHelper.TABLE_MATCHES,
                 DatabaseHelper.COLUMN_MATCH_ID + " = ?",
                 new String[]{String.valueOf(matchId)}) > 0;
     }
 
+    /**
+     * Retrieves all matches from the database.
+     * @return List of all matches
+     */
     public List<Match> getAllMatches() {
         List<Match> matches = new ArrayList<>();
         Cursor cursor = database.query(DatabaseHelper.TABLE_MATCHES, null, null, null, null, null, null);
@@ -130,6 +175,11 @@ public class MatchDao {
         return matches;
     }
 
+    /**
+     * Retrieves all matches involving a specific team.
+     * @param teamName The name of the team to search for
+     * @return List of matches where the specified team played
+     */
     public List<Match> getMatchesByTeam(String teamName) {
         List<Match> matches = new ArrayList<>();
         String selection = DatabaseHelper.COLUMN_TEAM_A + " = ? OR " + DatabaseHelper.COLUMN_TEAM_B + " = ?";
@@ -147,6 +197,11 @@ public class MatchDao {
         return matches;
     }
 
+    /**
+     * Converts a database cursor to a Match object.
+     * @param cursor The cursor containing match data
+     * @return A Match object populated with the cursor's data
+     */
     @SuppressLint("Range")
     private Match cursorToMatch(Cursor cursor) {
         Match match = new Match();

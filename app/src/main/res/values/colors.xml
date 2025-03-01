@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Color scheme definition for the Football Results app
+    Following Material Design color guidelines
+    
+    Primary colors are used for the main branding and key UI elements
+    Accent colors are used for floating action buttons and interactive elements
+    Text colors follow accessibility guidelines for readability
+    Utility colors are used for specific UI states and feedback
+-->
 <resources>
-    <color name="primary">#2196F3</color>
-    <color name="primary_dark">#1976D2</color>
-    <color name="primary_light">#BBDEFB</color>
-    <color name="accent">#00BCD4</color>
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#757575</color>
-    <color name="divider">#EEEEEE</color>
-    <color name="win_color">#4CAF50</color>
-    <color name="draw_color">#FFC107</color>
-    <color name="loss_color">#F44336</color>
-    <color name="background">#F5F5F5</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="input_background">#F8F9FA</color>
-    <color name="input_stroke">#E0E0E0</color>
+    <!-- Primary color palette -->
+    <color name="primary">#2196F3</color>                <!-- Main brand color, used for app bar and primary elements -->
+    <color name="primary_dark">#1976D2</color>           <!-- Darker variant used for status bar and emphasis -->
+    <color name="primary_light">#BBDEFB</color>          <!-- Light variant used for backgrounds and subtle highlights -->
+    <color name="accent">#00BCD4</color>                 <!-- Secondary color for floating action buttons and highlights -->
+
+    <!-- Text colors -->
+    <color name="primary_text">#212121</color>           <!-- Main text color for high emphasis text -->
+    <color name="secondary_text">#757575</color>         <!-- Secondary text color for lower emphasis and hints -->
+
+    <!-- Utility colors -->
+    <color name="divider">#EEEEEE</color>               <!-- Color used for dividers and borders -->
+    <color name="background">#F5F5F5</color>            <!-- Main background color -->
+    <color name="surface">#FFFFFF</color>               <!-- Surface color for cards and elevated surfaces -->
+    
+    <!-- Input field colors -->
+    <color name="input_background">#F8F9FA</color>      <!-- Background color for input fields -->
+    <color name="input_stroke">#E0E0E0</color>          <!-- Border color for input fields -->
+
+    <!-- Match result status colors -->
+    <color name="win_color">#4CAF50</color>             <!-- Green color indicating a win -->
+    <color name="draw_color">#FFC107</color>            <!-- Yellow color indicating a draw -->
+    <color name="loss_color">#F44336</color>            <!-- Red color indicating a loss -->
 </resources>

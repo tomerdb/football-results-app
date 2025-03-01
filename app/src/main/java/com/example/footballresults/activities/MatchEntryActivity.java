@@ -17,11 +17,22 @@ import com.example.footballresults.utils.StatisticsCalculator;
 
 import java.util.Calendar;
 
+/**
+ * Activity for adding new matches or editing existing ones.
+ * This activity provides a form interface for users to input match details
+ * including date, location, teams, and scores. It handles both creation of
+ * new matches and editing of existing ones.
+ */
 public class MatchEntryActivity extends AppCompatActivity {
+    // UI Components
     private EditText etDate, etCity, etTeamA, etTeamB, etTeamAGoals, etTeamBGoals;
     private Button btnSave, btnCancel, btnDelete;
+    
+    // Data Access Objects and Utilities
     private MatchDao matchDao;
     private StatisticsCalculator statsCalculator;
+    
+    // State Variables
     private Match existingMatch;
     private Calendar calendar;
 
@@ -36,6 +47,10 @@ public class MatchEntryActivity extends AppCompatActivity {
         setupListeners();
     }
 
+    /**
+     * Initializes all UI components by finding their views.
+     * This includes EditText fields for match details and buttons for actions.
+     */
     private void initializeViews() {
         etDate = findViewById(R.id.et_date);
         etCity = findViewById(R.id.et_city);
@@ -48,6 +63,10 @@ public class MatchEntryActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btn_delete);
     }
 
+    /**
+     * Initializes data components and checks if we're editing an existing match.
+     * If editing an existing match, loads its data into the form.
+     */
     private void initializeData() {
         matchDao = new MatchDao(this);
         statsCalculator = new StatisticsCalculator(this);
@@ -69,6 +88,10 @@ public class MatchEntryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets up click listeners for all interactive components.
+     * This includes the date picker dialog and action buttons.
+     */
     private void setupListeners() {
         // Date picker dialog
         etDate.setOnClickListener(v -> {
@@ -105,6 +128,10 @@ public class MatchEntryActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Populates form fields with data from an existing match.
+     * @param match The match object containing the data to display
+     */
     private void populateFields(Match match) {
         etDate.setText(match.getDate());
         etCity.setText(match.getCity());
@@ -114,6 +141,11 @@ public class MatchEntryActivity extends AppCompatActivity {
         etTeamBGoals.setText(String.valueOf(match.getTeamBGoals()));
     }
 
+    /**
+     * Validates all input fields to ensure they contain valid data.
+     * Shows appropriate error messages if validation fails.
+     * @return true if all inputs are valid, false otherwise
+     */
     private boolean validateInputs() {
         if (etDate.getText().toString().trim().isEmpty()) {
             showToast(getString(R.string.error_date_required));
@@ -157,6 +189,11 @@ public class MatchEntryActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Saves the match data to the database.
+     * If editing an existing match, updates its data and recalculates statistics.
+     * If creating a new match, adds it to the database and updates statistics.
+     */
     private void saveMatch() {
         String date = etDate.getText().toString().trim();
         String city = etCity.getText().toString().trim();
@@ -204,6 +241,11 @@ public class MatchEntryActivity extends AppCompatActivity {
         matchDao.close();
     }
 
+    /**
+     * Deletes an existing match from the database.
+     * Updates team statistics to reflect the removal of the match.
+     * @param matchId The ID of the match to delete
+     */
     private void deleteMatch(long matchId) {
         matchDao.open();
         Match match = matchDao.getMatchById(matchId);
@@ -224,6 +266,10 @@ public class MatchEntryActivity extends AppCompatActivity {
         matchDao.close();
     }
 
+    /**
+     * Shows a toast message to the user.
+     * @param message The message to display
+     */
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
