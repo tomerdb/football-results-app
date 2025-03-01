@@ -28,10 +28,10 @@
 
     <!-- Team Stats -->
     <string name="team_name">קבוצה</string>
-    <string name="matches_played">מש\'</string>
-    <string name="wins">נ</string>
-    <string name="draws">ת</string>
-    <string name="losses">ה</string>
+    <string name="matches_played">משחקים</string>
+    <string name="wins">ניצחונות</string>
+    <string name="draws">תיקו</string>
+    <string name="losses">הפסדים</string>
     <string name="goals_scored">שערים</string>
     <string name="points">נק\'</string>
 
