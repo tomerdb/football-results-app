@@ -36,7 +36,6 @@ public class TeamStatsDao {
         values.put(DatabaseHelper.COLUMN_DRAWS, team.getDraws());
         values.put(DatabaseHelper.COLUMN_LOSSES, team.getLosses());
         values.put(DatabaseHelper.COLUMN_GOALS_SCORED, team.getGoalsScored());
-        values.put(DatabaseHelper.COLUMN_GOALS_AGAINST, team.getGoalsAgainst());
         values.put(DatabaseHelper.COLUMN_POINTS, team.getPoints());
 
         return database.insert(DatabaseHelper.TABLE_TEAM_STATS, null, values);
@@ -49,7 +48,6 @@ public class TeamStatsDao {
         values.put(DatabaseHelper.COLUMN_DRAWS, team.getDraws());
         values.put(DatabaseHelper.COLUMN_LOSSES, team.getLosses());
         values.put(DatabaseHelper.COLUMN_GOALS_SCORED, team.getGoalsScored());
-        values.put(DatabaseHelper.COLUMN_GOALS_AGAINST, team.getGoalsAgainst());
         values.put(DatabaseHelper.COLUMN_POINTS, team.getPoints());
 
         return database.update(DatabaseHelper.TABLE_TEAM_STATS, values,
@@ -113,7 +111,6 @@ public class TeamStatsDao {
         teamStats.setDraws(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_DRAWS)));
         teamStats.setLosses(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LOSSES)));
         teamStats.setGoalsScored(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_GOALS_SCORED)));
-        teamStats.setGoalsAgainst(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_GOALS_AGAINST)));
         teamStats.setPoints(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_POINTS)));
         return teamStats;
     }

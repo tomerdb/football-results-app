@@ -35,9 +35,7 @@ public class StatisticsCalculator {
 
             // Update goals
             teamAStats.setGoalsScored(teamAStats.getGoalsScored() - match.getTeamAGoals());
-            teamAStats.setGoalsAgainst(teamAStats.getGoalsAgainst() - match.getTeamBGoals());
             teamBStats.setGoalsScored(teamBStats.getGoalsScored() - match.getTeamBGoals());
-            teamBStats.setGoalsAgainst(teamBStats.getGoalsAgainst() - match.getTeamAGoals());
 
             // Update wins, draws, losses, and points
             if (match.getTeamAGoals() > match.getTeamBGoals()) {
@@ -86,7 +84,6 @@ public class StatisticsCalculator {
                 stats.getDraws() == 0 &&
                 stats.getLosses() == 0 &&
                 stats.getGoalsScored() == 0 &&
-                stats.getGoalsAgainst() == 0 &&
                 stats.getPoints() == 0;
     }
     public void calculateStatsForMatch(Match match) {
@@ -112,9 +109,7 @@ public class StatisticsCalculator {
 
         // Update goals
         teamAStats.setGoalsScored(teamAStats.getGoalsScored() + match.getTeamAGoals());
-        teamAStats.setGoalsAgainst(teamAStats.getGoalsAgainst() + match.getTeamBGoals());
         teamBStats.setGoalsScored(teamBStats.getGoalsScored() + match.getTeamBGoals());
-        teamBStats.setGoalsAgainst(teamBStats.getGoalsAgainst() + match.getTeamAGoals());
 
         // Update wins, draws, losses, and points
         if (match.getTeamAGoals() > match.getTeamBGoals()) {
@@ -155,7 +150,6 @@ public class StatisticsCalculator {
             team.setDraws(0);
             team.setLosses(0);
             team.setGoalsScored(0);
-            team.setGoalsAgainst(0);
             team.setPoints(0);
             teamStatsDao.updateTeamStats(team);
         }

@@ -8,7 +8,6 @@ public class TeamStats {
     private int draws;
     private int losses;
     private int goalsScored;
-    private int goalsAgainst;
     private int points;
 
     // Constructor, getters, and setters
@@ -22,7 +21,6 @@ public class TeamStats {
         this.draws = 0;
         this.losses = 0;
         this.goalsScored = 0;
-        this.goalsAgainst = 0;
         this.points = 0;
     }
 
@@ -82,13 +80,6 @@ public class TeamStats {
         this.goalsScored = goalsScored;
     }
 
-    public int getGoalsAgainst() {
-        return goalsAgainst;
-    }
-
-    public void setGoalsAgainst(int goalsAgainst) {
-        this.goalsAgainst = goalsAgainst;
-    }
 
     public int getPoints() {
         return points;
