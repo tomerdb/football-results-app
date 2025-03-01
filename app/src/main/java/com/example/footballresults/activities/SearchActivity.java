@@ -23,13 +23,25 @@ import com.example.footballresults.models.TeamStats;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for searching matches by team.
+ * This activity allows users to select a team from a dropdown spinner
+ * and view all matches where that team participated, either as team A or team B.
+ */
 public class SearchActivity extends AppCompatActivity {
+    /** UI Components */
     private Spinner spinnerTeam;
     private RecyclerView recyclerViewMatches;
     private TextView tvNoMatches;
+    
+    /** Adapter for displaying matches */
     private MatchAdapter matchAdapter;
+    
+    /** Data Access Objects */
     private MatchDao matchDao;
     private TeamStatsDao teamStatsDao;
+    
+    /** List of team names for the spinner */
     private List<String> teamNames;
 
     @Override
@@ -43,19 +55,38 @@ public class SearchActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(getString(R.string.search_matches));
         }
 
-        // Initialize views
+        // Initialize views and data
+        initializeViews();
+        initializeData();
+        setupSpinner();
+    }
+
+    /**
+     * Initializes all UI components by finding their views.
+     */
+    private void initializeViews() {
         spinnerTeam = findViewById(R.id.spinner_team);
         recyclerViewMatches = findViewById(R.id.recycler_matches);
         tvNoMatches = findViewById(R.id.tv_no_matches);
 
-        // Initialize RecyclerView
+        // Set up RecyclerView
         recyclerViewMatches.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-        // Initialize DAOs
+    /**
+     * Initializes data access objects.
+     */
+    private void initializeData() {
         matchDao = new MatchDao(this);
         teamStatsDao = new TeamStatsDao(this);
+    }
 
-        // Load team names for spinner
+    /**
+     * Sets up the team selection spinner with data and listener.
+     * Loads all team names and configures the spinner's behavior
+     * when a team is selected.
+     */
+    private void setupSpinner() {
         loadTeamNames();
 
         // Set spinner listener
@@ -78,6 +109,10 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Loads all team names from the database and populates the spinner.
+     * Adds a default "Select a team" option at the beginning of the list.
+     */
     private void loadTeamNames() {
         teamStatsDao.open();
         List<TeamStats> allTeams = teamStatsDao.getAllTeamStats();
@@ -97,6 +132,10 @@ public class SearchActivity extends AppCompatActivity {
         spinnerTeam.setAdapter(adapter);
     }
 
+    /**
+     * Searches for and displays all matches involving the selected team.
+     * @param teamName The name of the team to search for
+     */
     private void searchMatchesByTeam(String teamName) {
         matchDao.open();
         List<Match> matches = matchDao.getMatchesByTeam(teamName);
@@ -109,17 +148,23 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private void showMatches(List<Match> matches) {
-        tvNoMatches.setVisibility(View.GONE);
-        recyclerViewMatches.setVisibility(View.VISIBLE);
-
-        matchAdapter = new MatchAdapter(this, matches);
-        recyclerViewMatches.setAdapter(matchAdapter);
+    /**
+     * Shows the "no matches found" message and hides the RecyclerView.
+     */
+    private void showNoMatches() {
+        recyclerViewMatches.setVisibility(View.GONE);
+        tvNoMatches.setVisibility(View.VISIBLE);
     }
 
-    private void showNoMatches() {
-        tvNoMatches.setVisibility(View.VISIBLE);
-        recyclerViewMatches.setVisibility(View.GONE);
+    /**
+     * Shows the list of matches and hides the "no matches" message.
+     * @param matches List of matches to display
+     */
+    private void showMatches(List<Match> matches) {
+        recyclerViewMatches.setVisibility(View.VISIBLE);
+        tvNoMatches.setVisibility(View.GONE);
+        matchAdapter = new MatchAdapter(this, matches);
+        recyclerViewMatches.setAdapter(matchAdapter);
     }
 
     @Override

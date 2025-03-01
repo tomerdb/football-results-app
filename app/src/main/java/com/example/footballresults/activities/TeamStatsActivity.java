@@ -21,13 +21,24 @@ import com.example.footballresults.utils.StatisticsCalculator;
 
 import java.util.List;
 
+/**
+ * Activity for displaying team statistics.
+ * Shows a sortable table of team statistics including matches played,
+ * wins, draws, losses, goals scored, and total points.
+ * Provides functionality to recalculate statistics and sort by points.
+ */
 public class TeamStatsActivity extends AppCompatActivity {
+    /** UI Components */
     private RecyclerView recyclerView;
+    private ImageView sortIndicator;
+    
+    /** Data handling components */
     private TeamStatsAdapter adapter;
     private TeamStatsDao teamStatsDao;
     private StatisticsCalculator statsCalculator;
+    
+    /** State tracking */
     private boolean isAscendingSort = false;
-    private ImageView sortIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,40 +52,31 @@ public class TeamStatsActivity extends AppCompatActivity {
         }
 
         // Initialize components
-        recyclerView = findViewById(R.id.recycler_team_stats);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Setup sort header click
-        LinearLayout pointsHeader = findViewById(R.id.points_header);
-        sortIndicator = findViewById(R.id.sort_indicator);
-
-        pointsHeader.setOnClickListener(v -> {
-            // Toggle sort direction
-            isAscendingSort = !isAscendingSort;
-            updateSortIndicator();
-            loadTeamStats();
-        });
-
-        // Sync horizontal scrolling between header and data
-        HorizontalScrollView headerScroll = findViewById(R.id.header_scroll);
-        HorizontalScrollView dataScroll = findViewById(R.id.data_scroll);
-
-        // Sync data scroll with header scroll
-        dataScroll.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            headerScroll.scrollTo(scrollX, 0);
-        });
-
-        // Sync header scroll with data scroll
-        headerScroll.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            dataScroll.scrollTo(scrollX, 0);
-        });
-
-        teamStatsDao = new TeamStatsDao(this);
-        statsCalculator = new StatisticsCalculator(this);
-
+        initializeViews();
+        initializeData();
         loadTeamStats();
     }
 
+    /**
+     * Initializes all UI components by finding their views.
+     */
+    private void initializeViews() {
+        recyclerView = findViewById(R.id.recycler_team_stats);
+        sortIndicator = findViewById(R.id.sort_indicator);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    /**
+     * Initializes data access objects and utilities.
+     */
+    private void initializeData() {
+        teamStatsDao = new TeamStatsDao(this);
+        statsCalculator = new StatisticsCalculator(this);
+    }
+
+    /**
+     * Updates the sort indicator icon based on current sort direction.
+     */
     private void updateSortIndicator() {
         if (isAscendingSort) {
             sortIndicator.setImageResource(android.R.drawable.arrow_up_float);
@@ -90,6 +92,10 @@ public class TeamStatsActivity extends AppCompatActivity {
         loadTeamStats();
     }
 
+    /**
+     * Loads team statistics from the database and displays them.
+     * Statistics are sorted according to the current sort direction.
+     */
     private void loadTeamStats() {
         teamStatsDao.open();
         List<TeamStats> teamStatsList = teamStatsDao.getAllTeamStatsSorted(isAscendingSort);
@@ -122,6 +128,10 @@ public class TeamStatsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Recalculates all team statistics from match data.
+     * This is useful if statistics become out of sync or after bulk operations.
+     */
     private void recalculateAllStats() {
         statsCalculator.recalculateAllStats();
         loadTeamStats();

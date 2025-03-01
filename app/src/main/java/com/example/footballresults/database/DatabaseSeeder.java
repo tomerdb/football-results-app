@@ -10,16 +10,31 @@ import android.util.Log;
 import com.example.footballresults.models.Match;
 import com.example.footballresults.utils.StatisticsCalculator;
 
+/**
+ * Database seeder class responsible for populating the database with initial data.
+ * This class provides functionality to seed the database with sample matches and teams,
+ * and calculates initial statistics. It ensures the database is only seeded once
+ * by checking if data already exists.
+ */
 public class DatabaseSeeder {
     private static final String TAG = "DatabaseSeeder";
     private final Context context;
     private final DatabaseHelper dbHelper;
 
+    /**
+     * Constructs a new DatabaseSeeder.
+     * @param context The application context
+     */
     public DatabaseSeeder(Context context) {
         this.context = context;
         this.dbHelper = new DatabaseHelper(context);
     }
 
+    /**
+     * Seeds the database with initial data if it's empty.
+     * This method checks if the database already contains data before seeding
+     * to prevent duplicate entries.
+     */
     public void seedDatabase() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -41,6 +56,14 @@ public class DatabaseSeeder {
         db.close();
     }
 
+    /**
+     * Inserts sample data into the database within a transaction.
+     * This method handles the complete seeding process:
+     * 1. Inserts teams
+     * 2. Inserts matches
+     * 3. Calculates and updates team statistics
+     * @param db The SQLiteDatabase instance to use for insertions
+     */
     private void insertSampleData(SQLiteDatabase db) {
         // Create transaction for better performance
         db.beginTransaction();
@@ -52,7 +75,7 @@ public class DatabaseSeeder {
             insertMatches(db);
 
             // Calculate statistics
-            updateStatistics(db);  // Pass the database here
+            updateStatistics(db);
 
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -62,6 +85,11 @@ public class DatabaseSeeder {
         }
     }
 
+    /**
+     * Inserts initial team data into the database.
+     * Creates records for all teams with initial statistics set to zero.
+     * @param db The SQLiteDatabase instance to use for insertions
+     */
     private void insertTeams(SQLiteDatabase db) {
         Log.d(TAG, "Inserting initial teams...");
         String[] teams = {
@@ -90,6 +118,11 @@ public class DatabaseSeeder {
         }
     }
 
+    /**
+     * Inserts sample match data into the database.
+     * Creates records for initial matches with various results.
+     * @param db The SQLiteDatabase instance to use for insertions
+     */
     private void insertMatches(SQLiteDatabase db) {
         Log.d(TAG, "Inserting initial matches...");
 
@@ -174,6 +207,12 @@ public class DatabaseSeeder {
         db.insert(DatabaseHelper.TABLE_MATCHES, null, match8);
     }
 
+    /**
+     * Updates team statistics based on match results.
+     * Calculates and updates statistics for all teams by processing
+     * all matches in the database.
+     * @param db The SQLiteDatabase instance to use for updates
+     */
     private void updateStatistics(SQLiteDatabase db) {
         Log.d(TAG, "Calculating team statistics...");
 
@@ -188,10 +227,8 @@ public class DatabaseSeeder {
                 @SuppressLint("Range") int teamAGoals = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEAM_A_GOALS));
                 @SuppressLint("Range") int teamBGoals = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEAM_B_GOALS));
 
-                // Update Team A stats
+                // Update statistics for both teams
                 updateTeamStats(db, teamA, teamAGoals, teamBGoals, teamAGoals > teamBGoals, teamAGoals == teamBGoals);
-
-                // Update Team B stats
                 updateTeamStats(db, teamB, teamBGoals, teamAGoals, teamBGoals > teamAGoals, teamAGoals == teamBGoals);
 
             } while (cursor.moveToNext());
@@ -199,6 +236,17 @@ public class DatabaseSeeder {
         }
     }
 
+    /**
+     * Updates statistics for a single team based on a match result.
+     * Calculates and updates matches played, wins, draws, losses,
+     * goals scored/against, and points.
+     * @param db The SQLiteDatabase instance to use for updates
+     * @param teamName The name of the team to update
+     * @param goalsScored Goals scored by the team in this match
+     * @param goalsAgainst Goals scored against the team in this match
+     * @param isWin Whether the team won the match
+     * @param isDraw Whether the match was a draw
+     */
     private void updateTeamStats(SQLiteDatabase db, String teamName, int goalsScored, int goalsAgainst, boolean isWin, boolean isDraw) {
         // Get current team stats
         Cursor cursor = db.query(
