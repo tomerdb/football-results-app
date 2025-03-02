@@ -91,10 +91,6 @@ com.example.footballresults/
 
 - [Tomer Harari, Yuval Boker] - Initial work
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details
-
 ## Acknowledgments
 
 - Project developed as part of [Course/Android]
