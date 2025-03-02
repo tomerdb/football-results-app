@@ -64,6 +64,16 @@ public class TeamStatsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_team_stats);
         sortIndicator = findViewById(R.id.sort_indicator);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Synchronize horizontal scrolling between header and data
+        HorizontalScrollView headerScroll = findViewById(R.id.header_scroll);
+        HorizontalScrollView dataScroll = findViewById(R.id.data_scroll);
+
+        headerScroll.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> 
+            dataScroll.scrollTo(scrollX, 0));
+
+        dataScroll.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> 
+            headerScroll.scrollTo(scrollX, 0));
     }
 
     /**
